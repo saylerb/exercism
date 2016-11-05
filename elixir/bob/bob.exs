@@ -10,12 +10,6 @@ defmodule Bob do
       String.match?(input, ~r/[A-Z]{2,}|[А-Я]/) ->
         "Whoa, chill out!"
 
-      String.match?(String.replace(input, ", ", ""), ~r/\d+/) ->
-        "Whatever."
-
-      String.match?(input, ~r/\d+/) ->
-        "Whatever."
-
       true ->
         "Whatever."
     end

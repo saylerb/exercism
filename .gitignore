@@ -34,3 +34,7 @@ npm-debug.log*
 node_modules
 babel-output
 
+# Java
+
+.gradle
+build

@@ -8,8 +8,8 @@ module Grains
   end
 
   def self.total
-    (1..64).to_a.reduce(0) do |sum, square_number|
-      sum += square(square_number)
+    (1..64).reduce(0) do |sum, square_number|
+      sum + square(square_number)
     end
   end
 end

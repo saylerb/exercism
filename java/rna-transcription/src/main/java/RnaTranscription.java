@@ -19,13 +19,14 @@ public class RnaTranscription {
         if (dnaString == "") {
             return "";
         } else {
-            String result = "";
+            StringBuilder result = new StringBuilder();
+
             String[] nucleotides = dnaString.split("");
 
             for (String nucleotide : nucleotides) {
-                result = result.concat(this.key.get(nucleotide));
+                result.append(this.key.get(nucleotide));
             }
-            return result;
+            return result.toString();
         }
     }
 

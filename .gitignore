@@ -38,3 +38,7 @@ babel-output
 
 .gradle
 build
+out
+.idea
+gradle
+gradlew*

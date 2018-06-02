@@ -2,4 +2,5 @@
 
 * This is a collection of my solutions to practice problems from [http://exercism.io/](exercism.io)
 * I use these exercises to keep my current skills sharp and play around with different languages
-* View my exercism profile [here](http://exercism.io/saylerb)
+* View my exercism profile [here](http://exercism.io/saylerb). I like to submit questions with
+  some comments, and hope that others will give constructive feedback.

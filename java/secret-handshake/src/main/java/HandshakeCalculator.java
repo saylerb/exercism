@@ -1,34 +1,26 @@
 import static java.util.Collections.reverse;
 
 import java.util.ArrayList;
-import java.util.LinkedHashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.Stack;
 
 class HandshakeCalculator {
 
-    private static Map<Integer, Signal> map = new LinkedHashMap<Integer, Signal>() {
-        {
-            put(1, Signal.WINK);
-            put(10, Signal.DOUBLE_BLINK);
-            put(100, Signal.CLOSE_YOUR_EYES);
-            put(1000, Signal.JUMP);
-        }
-    };
+    private static final String REVERSE_NUMBER = "10000";
 
     List<Signal> calculateHandshake(int number) {
         ArrayList<Signal> result = new ArrayList<>();
+        StringBuilder binaryString = decimalToBinaryStringBuilder(number);
 
-        int binaryNumber = decimalToBinary(number);
+        binaryString.reverse();
 
-        for (int key : map.keySet()) {
-            if ((binaryNumber / key) % 10 == 1) {
-                result.add(map.get(key));
+        for (int i = 0; i < binaryString.length(); i++) {
+            if (binaryString.charAt(i) == '1' && i < Signal.values().length) {
+                result.add(Signal.values()[i]);
             }
         }
 
-        if ((binaryNumber / 10000) % 10 == 1) {
+        if (binaryString.length() == REVERSE_NUMBER.length()) {
             reverse(result);
             return result;
         }
@@ -37,7 +29,7 @@ class HandshakeCalculator {
     }
 
 
-    int decimalToBinary(int number) {
+    StringBuilder decimalToBinaryStringBuilder(int number) {
         Stack<Integer> stack = new Stack<>();
 
         while (number > 0) {
@@ -46,11 +38,10 @@ class HandshakeCalculator {
             number = number / 2;
         }
 
-        int result = 0;
+        StringBuilder result = new StringBuilder();
 
         while (!stack.isEmpty()) {
-            int sizeOfStack = stack.size();
-            result += Math.pow(10, sizeOfStack - 1) * stack.pop();
+            result.append(String.valueOf(stack.pop()));
         }
 
         return result;

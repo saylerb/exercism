@@ -1,4 +1,3 @@
-import org.junit.Ignore;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -92,13 +91,4 @@ public class HandshakeCalculatorTest {
                 emptyList(),
                 handshakeCalculator.calculateHandshake(0));
     }
-
-    @Test
-    public void testThatCanConvertDecimalToBinary() {
-        assertEquals(11, handshakeCalculator.decimalToBinary(3));
-        assertEquals(110, handshakeCalculator.decimalToBinary(6));
-        assertEquals(111100, handshakeCalculator.decimalToBinary(60));
-    }
-
-
 }

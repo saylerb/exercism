@@ -1,7 +1,8 @@
 const reverseString = (string) => {
   let reversed = '';
   const normal = string.split('');
-  for (let i = 0; i < string.length; i += 1) {
+
+  while(normal.length > 0) {
     reversed += normal.pop();
   }
 

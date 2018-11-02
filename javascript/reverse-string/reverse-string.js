@@ -1,12 +1,6 @@
 const reverseString = (string) => {
-  let reversed = '';
-  const normal = string.split('');
-
-  while(normal.length > 0) {
-    reversed += normal.pop();
-  }
-
-  return reversed;
+  const characters = string.split('');
+  return characters.reduceRight((acc, char) => acc.concat(char), '');
 };
 
 export default reverseString;

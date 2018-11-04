@@ -1,7 +1,7 @@
 import java.util.Stack;
 
 class DecimalToBinary {
-    static String convert(int decimalNumber) {
+    String convert(int decimalNumber) {
         Stack<Integer> stack = new Stack<>();
 
         while (decimalNumber > 0) {

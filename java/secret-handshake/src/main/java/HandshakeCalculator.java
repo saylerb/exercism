@@ -4,10 +4,15 @@ import java.util.List;
 
 class HandshakeCalculator {
     private static final String REVERSE_NUMBER = "10000";
+    private final DecimalToBinary decimalToBinary;
+
+    public HandshakeCalculator() {
+        decimalToBinary = new DecimalToBinary();
+    }
 
     List<Signal> calculateHandshake(int number) {
         ArrayList<Signal> result = new ArrayList<>();
-        String binaryString = DecimalToBinary.convert(number);
+        String binaryString = decimalToBinary.convert(number);
 
         String reversedBinaryString = new StringBuilder(binaryString).reverse().toString();
 

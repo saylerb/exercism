@@ -1,6 +1,5 @@
-import static java.util.Collections.reverse;
-
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 class HandshakeCalculator {
@@ -19,8 +18,7 @@ class HandshakeCalculator {
         }
 
         if (reversedBinaryString.length() == REVERSE_NUMBER.length()) {
-            reverse(result);
-            return result;
+            Collections.reverse(result);
         }
 
         return result;

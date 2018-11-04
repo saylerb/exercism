@@ -75,4 +75,9 @@ describe('Triangle', () => {
     const triangle = new Triangle(10, 1, 3);
     expect(triangle.kind.bind(triangle)).toThrow();
   });
+
+  test('is a degenerate triangle', () => {
+    const triangle = new Triangle(10, 5, 5);
+    expect(triangle.kind.bind(triangle)).toThrow();
+  });
 });

@@ -26,16 +26,20 @@ export default class Triangle {
   validate() {
     const { sides, sums } = this;
 
-    if (sides.every(side => side === 0)) {
-      throw new Error('Triangle must have a size');
+    if (sides.some(side => side === 0)) {
+      throw new Error('All triangle sides must have a size');
     }
 
     if (sides.some(side => side < 0)) {
       throw new Error("Can't have a negative side");
     }
 
-    if (sides.some(current => sums.some(sum => sum < current))) {
+    if (sides.some(current => sums.some(sum => sum <= current))) {
       throw new Error("Can't violate triangle inequality");
+    }
+
+    if (sides.some(current => sums.some(sum => sum === current))) {
+      throw new Error("Can't have a degenerate triangle");
     }
   }
 

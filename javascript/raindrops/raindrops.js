@@ -14,6 +14,6 @@ export default function Raindrops() {
       result += 'Plong';
     }
 
-    return result === '' ? number.toString() : result;
+    return result || number.toString();
   };
 }

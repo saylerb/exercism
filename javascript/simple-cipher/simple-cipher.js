@@ -25,6 +25,27 @@ function containsHyphen(string) {
   return string.replace(/-/g, '') !== string;
 }
 
+function alphaToIndex(letter) {
+  return letter.charCodeAt() - 97;
+}
+
+function mapIntToAlphabet(index) {
+  // 0 = 'a', 25 = 'z'
+  return String.fromCharCode(index + 97);
+}
+
+function applyPositiveShift(letter, shift) {
+  const originalLetterIndex = alphaToIndex(letter);
+  const shiftedIndex = (originalLetterIndex + shift) % 26;
+  return mapIntToAlphabet(shiftedIndex);
+}
+
+function applyNegativeShift(letter, shift) {
+  const originalLetterIndex = alphaToIndex(letter);
+  const shiftedIndex = ((originalLetterIndex - shift) + 26) % 26;
+  return mapIntToAlphabet(shiftedIndex);
+}
+
 export class Cipher {
   constructor(key) {
     if (key || key === '') {
@@ -38,20 +59,19 @@ export class Cipher {
   }
 
   calculateShifts() {
-    const shifts = this.key.split('').map(char => char.charCodeAt() - 97);
-    return shifts;
+    return this.key.split('').map(letter => alphaToIndex(letter));
   }
 
   encode(encodeString) {
-    return encodeString.split('').map((char, index) => String.fromCharCode(
-      char.charCodeAt() + this.shifts[index],
-    )).join('');
+    return encodeString.split('')
+      .map((char, index) => applyPositiveShift(char, this.shifts[index]))
+      .join('');
   }
 
   decode(decodeString) {
-    return decodeString.split('').map((char, index) => String.fromCharCode(
-      char.charCodeAt() - this.shifts[index],
-    )).join('');
+    return decodeString.split('')
+      .map((char, index) => applyNegativeShift(char, this.shifts[index]))
+      .join('');
   }
 
   static validate(key) {

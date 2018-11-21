@@ -13,8 +13,8 @@ function isNumericString(string) {
   return !Number.isNaN(Number.parseInt(string, 10));
 }
 
-function isAllLowerCase(string) {
-  return string === string.toLowerCase();
+function nonLowerCase(string) {
+  return string !== string.toLowerCase();
 }
 
 function containsWhiteSpace(string) {
@@ -57,7 +57,7 @@ export class Cipher {
   static validate(key) {
     if (key.length === 0
       || isNumericString(key)
-      || !isAllLowerCase(key)
+      || nonLowerCase(key)
       || containsWhiteSpace(key)
       || containsHyphen(key)
     ) {

@@ -64,13 +64,19 @@ export class Cipher {
 
   encode(encodeString) {
     return encodeString.split('')
-      .map((char, index) => applyPositiveShift(char, this.shifts[index]))
+      .map((char, index) => {
+        const shift = this.shifts[index % this.key.length];
+        return applyPositiveShift(char, shift);
+      })
       .join('');
   }
 
   decode(decodeString) {
     return decodeString.split('')
-      .map((char, index) => applyNegativeShift(char, this.shifts[index]))
+      .map((char, index) => {
+        const shift = this.shifts[index % this.key.length];
+        return applyNegativeShift(char, shift);
+      })
       .join('');
   }
 

@@ -3,7 +3,6 @@ function randomLetter() {
 }
 
 function generateRandomString() {
-  // Array.apply(null, { length: 100 })])
   return [...(null, { length: 100 })]
     .map(() => randomLetter())
     .join('');
@@ -25,26 +24,22 @@ function containsHyphen(string) {
   return string.replace(/-/g, '') !== string;
 }
 
-function alphaToIndex(letter) {
+function letterToIndex(letter) {
   return letter.charCodeAt() - 97;
 }
 
-function mapIntToAlphabet(index) {
-  // 0 = 'a', 25 = 'z'
+function indexToLetter(index) {
   return String.fromCharCode(index + 97);
 }
 
-function applyPositiveShift(letter, shift) {
-  const originalLetterIndex = alphaToIndex(letter);
-  const shiftedIndex = (originalLetterIndex + shift) % 26;
-  return mapIntToAlphabet(shiftedIndex);
+function applyShift(letter, shiftFunction) {
+  const startIndex = letterToIndex(letter);
+  const shiftedIndex = shiftFunction(startIndex);
+  return indexToLetter(shiftedIndex);
 }
 
-function applyNegativeShift(letter, shift) {
-  const originalLetterIndex = alphaToIndex(letter);
-  const shiftedIndex = ((originalLetterIndex - shift) + 26) % 26;
-  return mapIntToAlphabet(shiftedIndex);
-}
+const positiveShift = shift => start => (start + shift) % 26;
+const negativeShift = shift => start => ((start - shift) + 26) % 26;
 
 export class Cipher {
   constructor(key) {
@@ -54,19 +49,18 @@ export class Cipher {
     } else {
       this.key = generateRandomString();
     }
-
     this.shifts = this.calculateShifts();
   }
 
   calculateShifts() {
-    return this.key.split('').map(letter => alphaToIndex(letter));
+    return this.key.split('').map(letter => letterToIndex(letter));
   }
 
   encode(encodeString) {
     return encodeString.split('')
       .map((char, index) => {
         const shift = this.shifts[index % this.key.length];
-        return applyPositiveShift(char, shift);
+        return applyShift(char, positiveShift(shift));
       })
       .join('');
   }
@@ -75,7 +69,7 @@ export class Cipher {
     return decodeString.split('')
       .map((char, index) => {
         const shift = this.shifts[index % this.key.length];
-        return applyNegativeShift(char, shift);
+        return applyShift(char, negativeShift(shift));
       })
       .join('');
   }

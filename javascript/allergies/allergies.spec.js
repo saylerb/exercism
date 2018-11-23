@@ -41,24 +41,24 @@ describe('Allergies', () => {
     expect(allergies.list()).toEqual(['eggs', 'peanuts', 'shellfish', 'strawberries', 'tomatoes', 'chocolate', 'pollen', 'cats']);
   });
 
-  xtest('no allergic means not allergic', () => {
+  test('no allergic means not allergic', () => {
     const allergies = new Allergies(0);
     expect(allergies.allergicTo('peanuts')).toEqual(false);
     expect(allergies.allergicTo('cats')).toEqual(false);
     expect(allergies.allergicTo('strawberries')).toEqual(false);
   });
 
-  xtest('allergic to eggs', () => {
+  test('allergic to eggs', () => {
     const allergies = new Allergies(1);
     expect(allergies.allergicTo('eggs')).toEqual(true);
   });
 
-  xtest('allergic to eggs and other things', () => {
+  test('allergic to eggs and other things', () => {
     const allergies = new Allergies(5);
     expect(allergies.allergicTo('eggs')).toEqual(true);
   });
 
-  xtest('ignore non allergen score parts', () => {
+  test('ignore non allergen score parts', () => {
     const allergies = new Allergies(509);
     expect(allergies.list()).toEqual(['eggs', 'shellfish', 'strawberries', 'tomatoes', 'chocolate', 'pollen', 'cats']);
   });

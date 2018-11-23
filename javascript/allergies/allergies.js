@@ -29,12 +29,14 @@ export default class Allergies {
 
     while (currentNumber > 0) {
       const largest = largestPowerOfTwo(currentNumber);
-
       result = [this.map[largest], ...result];
-
       currentNumber -= largest;
     }
 
-    return result;
+    return result.filter(item => item !== undefined);
+  }
+
+  allergicTo(allergy) {
+    return this.list().some(item => item === allergy);
   }
 }

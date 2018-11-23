@@ -1,3 +1,5 @@
+import largestPowerOfTwo from './largestPowerOfTwo';
+
 export default class Allergies {
   constructor(num) {
     this.number = num;
@@ -22,7 +24,17 @@ export default class Allergies {
   }
 
   list() {
-    const result = [];
-    return result.concat(this.map[this.number] || []);
+    let result = [];
+    let currentNumber = this.number;
+
+    while (currentNumber > 0) {
+      const largest = largestPowerOfTwo(currentNumber);
+
+      result = [this.map[largest], ...result];
+
+      currentNumber -= largest;
+    }
+
+    return result;
   }
 }

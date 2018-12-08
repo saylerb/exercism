@@ -6,8 +6,9 @@ import {
   generateRandomString,
   letterToIndex,
   applyShift,
-  positiveShift,
-  negativeShift,
+  shift,
+  positive,
+  negative
 } from './helpers';
 
 export class Cipher {
@@ -26,29 +27,32 @@ export class Cipher {
   }
 
   encode(encodeString) {
-    return encodeString.split('')
+    return encodeString
+      .split('')
       .map((char, index) => {
-        const shift = this.shifts[index % this.key.length];
-        return applyShift(char, positiveShift(shift));
+        const shiftAmount = this.shifts[index % this.key.length];
+        return applyShift(char, shift(shiftAmount, positive));
       })
       .join('');
   }
 
   decode(decodeString) {
-    return decodeString.split('')
+    return decodeString
+      .split('')
       .map((char, index) => {
-        const shift = this.shifts[index % this.key.length];
-        return applyShift(char, negativeShift(shift));
+        const shiftAmount = this.shifts[index % this.key.length];
+        return applyShift(char, shift(shiftAmount, negative));
       })
       .join('');
   }
 
   static validate(key) {
-    if (key.length === 0
-      || isNumericString(key)
-      || nonLowerCase(key)
-      || containsWhiteSpace(key)
-      || containsHyphen(key)
+    if (
+      key.length === 0 ||
+      isNumericString(key) ||
+      nonLowerCase(key) ||
+      containsWhiteSpace(key) ||
+      containsHyphen(key)
     ) {
       throw new Error('Bad key');
     }

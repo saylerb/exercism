@@ -3,9 +3,7 @@ export function randomLetter() {
 }
 
 export function generateRandomString() {
-  return [...(null, { length: 100 })]
-    .map(() => randomLetter())
-    .join('');
+  return [...(null, { length: 100 })].map(() => randomLetter()).join('');
 }
 
 export function isNumericString(string) {
@@ -38,5 +36,8 @@ export function applyShift(letter, shiftFunction) {
   return indexToLetter(shiftedIndex);
 }
 
-export const positiveShift = shift => start => (start + shift) % 26;
-export const negativeShift = shift => start => ((start - shift) + 26) % 26;
+export const positive = (a, b) => a + b;
+export const negative = (a, b) => a - b;
+
+export const shift = (shiftAmount, shiftType) => startIndex =>
+  (shiftType(startIndex, shiftAmount) + 26) % 26;

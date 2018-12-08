@@ -104,8 +104,9 @@ describe('Substitution cipher', () => {
   });
 
   test(': double shift encode', () => {
-    expect(new Cipher('iamapandabear').encode('iamapandabear'))
-      .toEqual('qayaeaagaciai');
+    expect(new Cipher('iamapandabear').encode('iamapandabear')).toEqual(
+      'qayaeaagaciai'
+    );
   });
 
   test('can wrap on encode', () => {
@@ -117,7 +118,6 @@ describe('Substitution cipher', () => {
   });
 
   test('can handle messages longer than the key', () => {
-    expect(new Cipher('abc').encode('iamapandabear'))
-      .toEqual('iboaqcnecbfcr');
+    expect(new Cipher('abc').encode('iamapandabear')).toEqual('iboaqcnecbfcr');
   });
 });

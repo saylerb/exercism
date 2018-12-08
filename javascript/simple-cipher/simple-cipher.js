@@ -26,22 +26,20 @@ export class Cipher {
     return this.key.split('').map(letter => letterToIndex(letter));
   }
 
-  encode(encodeString) {
-    return encodeString
-      .split('')
-      .map((char, index) => {
-        const shiftAmount = this.shifts[index % this.key.length];
-        return applyShift(char, shift(shiftAmount, positive));
-      })
-      .join('');
+  encode(string) {
+    return this.translate(string, shift(positive));
   }
 
-  decode(decodeString) {
-    return decodeString
+  decode(string) {
+    return this.translate(string, shift(negative));
+  }
+
+  translate(string, shiftFunction) {
+    return string
       .split('')
       .map((char, index) => {
         const shiftAmount = this.shifts[index % this.key.length];
-        return applyShift(char, shift(shiftAmount, negative));
+        return applyShift(char, shiftFunction(shiftAmount));
       })
       .join('');
   }

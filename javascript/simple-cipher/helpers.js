@@ -39,5 +39,5 @@ export function applyShift(letter, shiftFunction) {
 export const positive = (a, b) => a + b;
 export const negative = (a, b) => a - b;
 
-export const shift = (shiftAmount, shiftType) => startIndex =>
+export const shift = shiftType => shiftAmount => startIndex =>
   (shiftType(startIndex, shiftAmount) + 26) % 26;

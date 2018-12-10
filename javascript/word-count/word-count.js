@@ -11,6 +11,6 @@ export default class Words {
           acc[word] = 1;
         }
         return acc;
-      }, {});
+      }, Object.create(null));
   }
 }

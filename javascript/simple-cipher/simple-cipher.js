@@ -5,7 +5,7 @@ import {
   containsHyphen,
   generateRandomString,
   letterToIndex,
-  applyShift,
+  indexToLetter,
   shift,
   positive,
   negative
@@ -39,9 +39,15 @@ export class Cipher {
       .split('')
       .map((char, index) => {
         const shiftAmount = this.shifts[index % this.key.length];
-        return applyShift(char, shiftFunction(shiftAmount));
+        return Cipher.applyShift(char, shiftFunction(shiftAmount));
       })
       .join('');
+  }
+
+  static applyShift(letter, shiftFunction) {
+    const startIndex = letterToIndex(letter);
+    const shiftedIndex = shiftFunction(startIndex);
+    return indexToLetter(shiftedIndex);
   }
 
   static validate(key) {

@@ -30,12 +30,6 @@ export function indexToLetter(index) {
   return String.fromCharCode(index + 97);
 }
 
-export function applyShift(letter, shiftFunction) {
-  const startIndex = letterToIndex(letter);
-  const shiftedIndex = shiftFunction(startIndex);
-  return indexToLetter(shiftedIndex);
-}
-
 export const positive = (a, b) => a + b;
 export const negative = (a, b) => a - b;
 

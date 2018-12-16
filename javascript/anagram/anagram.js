@@ -1,10 +1,4 @@
-function sortCharacters(word) {
-  return word
-    .toLowerCase()
-    .split('')
-    .sort()
-    .join('');
-}
+import { sortCharacters } from './sortCharacters';
 
 class Anagram {
   constructor(subject) {

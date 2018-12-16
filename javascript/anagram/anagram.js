@@ -12,17 +12,13 @@ class Anagram {
   }
 
   matches(list) {
-    return list.filter(unsortedWord => {
-      return this.isAnagram(unsortedWord);
-    });
+    return list.filter(unsortedWord => this.isAnagram(unsortedWord));
   }
 
   isAnagram(originalWord) {
-    const sortedWord = sortCharacters(originalWord);
-
     return (
       this.subject.toLowerCase() !== originalWord.toLowerCase() &&
-      sortCharacters(this.subject) === sortedWord
+      sortCharacters(this.subject) === sortCharacters(originalWord)
     );
   }
 }

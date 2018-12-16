@@ -12,14 +12,14 @@ class Anagram {
   }
 
   matches(list) {
-    const pairs = list.map(word => [word, sortCharacters(word)]);
-
     return list.filter(unsortedWord => {
-      return this.isAnagram(unsortedWord, sortCharacters(unsortedWord));
+      return this.isAnagram(unsortedWord);
     });
   }
 
-  isAnagram(originalWord, sortedWord) {
+  isAnagram(originalWord) {
+    const sortedWord = sortCharacters(originalWord);
+
     return (
       this.subject.toLowerCase() !== originalWord.toLowerCase() &&
       sortCharacters(this.subject) === sortedWord

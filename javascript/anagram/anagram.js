@@ -12,13 +12,13 @@ class Anagram {
   }
 
   matches(list) {
-    return list.filter(unsortedWord => this.isAnagram(unsortedWord));
+    return list.filter(word => this.isAnagram(word));
   }
 
-  isAnagram(originalWord) {
+  isAnagram(word) {
     return (
-      this.subject.toLowerCase() !== originalWord.toLowerCase() &&
-      sortCharacters(this.subject) === sortCharacters(originalWord)
+      this.subject.toLowerCase() !== word.toLowerCase() &&
+      sortCharacters(this.subject) === sortCharacters(word)
     );
   }
 }

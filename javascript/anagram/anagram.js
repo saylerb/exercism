@@ -14,9 +14,9 @@ class Anagram {
   matches(list) {
     const pairs = list.map(word => [word, sortCharacters(word)]);
 
-    return pairs
-      .filter(pair => this.isAnagram(pair[0], pair[1]))
-      .map(pair => pair[0]);
+    return list.filter(unsortedWord => {
+      return this.isAnagram(unsortedWord, sortCharacters(unsortedWord));
+    });
   }
 
   isAnagram(originalWord, sortedWord) {

@@ -6,7 +6,7 @@ describe("Space Age", () => {
     expect(age.seconds).toEqual(1000000);
   });
 
-  xtest("age in earth years", () => {
+  test("age in earth years", () => {
     const age = new SpaceAge(1000000000);
     expect(age.onEarth()).toEqual(31.69);
   });

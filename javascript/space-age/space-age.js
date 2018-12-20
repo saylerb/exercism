@@ -4,6 +4,14 @@ export class SpaceAge {
   }
 
   onEarth() {
-    return Math.round((this.seconds / (60 * 60 * 24 * 365.25)) * 100) / 100;
+    return this.round(this.seconds / (60 * 60 * 24 * 365.25));
+  }
+
+  onMercury() {
+    return this.round(this.onEarth() / 0.2408467);
+  }
+
+  round(number) {
+    return Math.round(number * 100) / 100;
   }
 }

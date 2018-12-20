@@ -11,7 +11,7 @@ describe("Space Age", () => {
     expect(age.onEarth()).toEqual(31.69);
   });
 
-  xtest("age in mercury years", () => {
+  test("age in mercury years", () => {
     const age = new SpaceAge(2134835688);
     expect(age.onEarth()).toEqual(67.65);
     expect(age.onMercury()).toEqual(280.88);

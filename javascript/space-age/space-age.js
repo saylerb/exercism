@@ -3,15 +3,23 @@ export class SpaceAge {
     this.seconds = seconds;
   }
 
+  onEarthNotRounded() {
+    return this.seconds / (60 * 60 * 24 * 365.25);
+  }
+
   onEarth() {
-    return SpaceAge.round(this.seconds / (60 * 60 * 24 * 365.25));
+    return SpaceAge.round(this.onEarthNotRounded());
   }
 
   onMercury() {
-    return SpaceAge.round(this.onEarth() / 0.2408467);
+    return SpaceAge.round(this.onEarthNotRounded() / 0.2408467);
   }
 
-  static round(number) {
-    return Math.round(number * 100) / 100;
+  onVenus() {
+    return SpaceAge.round(this.onEarthNotRounded() / 0.61519726);
+  }
+
+  static round(num) {
+    return Math.round(num * 100) / 100;
   }
 }

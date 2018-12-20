@@ -23,37 +23,37 @@ describe("Space Age", () => {
     expect(age.onVenus()).toEqual(9.78);
   });
 
-  xtest("age in mars years", () => {
+  test("age in mars years", () => {
     const age = new SpaceAge(2329871239);
     expect(age.onEarth()).toEqual(73.83);
     expect(age.onMars()).toEqual(39.25);
   });
 
-  xtest("age in jupiter years", () => {
+  test("age in jupiter years", () => {
     const age = new SpaceAge(901876382);
     expect(age.onEarth()).toEqual(28.58);
     expect(age.onJupiter()).toEqual(2.41);
   });
 
-  xtest("age in saturn years", () => {
+  test("age in saturn years", () => {
     const age = new SpaceAge(3000000000);
     expect(age.onEarth()).toEqual(95.06);
     expect(age.onSaturn()).toEqual(3.23);
   });
 
-  xtest("age in uranus years", () => {
+  test("age in uranus years", () => {
     const age = new SpaceAge(3210123456);
     expect(age.onEarth()).toEqual(101.72);
     expect(age.onUranus()).toEqual(1.21);
   });
 
-  xtest("age in neptune year", () => {
+  test("age in neptune year", () => {
     const age = new SpaceAge(8210123456);
     expect(age.onEarth()).toEqual(260.16);
     expect(age.onNeptune()).toEqual(1.58);
   });
 
-  xtest("reassigning seconds", () => {
+  test("reassigning seconds", () => {
     const age = new SpaceAge(1000000);
     age.seconds = 3210123456;
     expect(age.onEarth()).toEqual(101.72);

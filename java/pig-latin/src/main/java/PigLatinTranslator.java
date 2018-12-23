@@ -1,5 +1,5 @@
 public class PigLatinTranslator {
     public String translate(String input) {
-        return "apple" + "ay";
+        return String.format("%say", input);
     }
 }

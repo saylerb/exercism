@@ -2,8 +2,9 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class PigLatinTranslator {
-    public String translate(String input) {
+class PigLatinTranslator {
+
+    String translate(String input) {
         List<String> words = Arrays.asList(input.split("\\s+"));
 
         List<String> translated = words.stream()
@@ -13,29 +14,27 @@ public class PigLatinTranslator {
         return String.join(" ", translated);
     }
 
-    private String translateWord(String input) {
-        StringBuilder consonantPrefix = new StringBuilder();
+    private String translateWord(String word) {
+        ConsonantPrefix consonantPrefix = new ConsonantPrefix();
 
-        for (String letter : input.split("")) {
+        for (String letter : word.split("")) {
             // short circuit if current consonant clusters is an edge case:
             // and treat as a vowel
-            if (consonantPrefix.toString().equals("xr") ||
-                 consonantPrefix.toString().equals("yt")) {
-                consonantPrefix = new StringBuilder();
+            if (consonantPrefix.getPrefix().equals("xr") ||
+                consonantPrefix.getPrefix().equals("yt")) {
+                consonantPrefix.clear();
                 break;
             }
 
             if (isConsonant(letter)) {
                 // y follows a consonant
-                if (consonantPrefix.length() > 0 && letter.equals("y")) {
+                if (!consonantPrefix.isEmpty() && letter.equals("y")) {
                     break;
                 } else {
                     consonantPrefix.append(letter);
                 }
-            } else if (consonantPrefix.length() > 0) {
-                String previousLetter = String.valueOf(consonantPrefix.charAt(consonantPrefix.length() - 1));
-
-                if (previousLetter.equals("q") && letter.equals("u")) {
+            } else if (!consonantPrefix.isEmpty()) {
+                if (consonantPrefix.getLastLetter().equals("q") && letter.equals("u")) {
                     consonantPrefix.append(letter);
                 } else {
                     // letter following q is not u, ignore
@@ -47,12 +46,12 @@ public class PigLatinTranslator {
             }
         }
 
-        String prefix = consonantPrefix.toString();
+        String prefix = consonantPrefix.getPrefix();
 
         if (prefix.isEmpty()) {
-            return outputWord("", input);
+            return outputWord("", word);
         }
-        return outputWord(prefix, input);
+        return outputWord(prefix, word);
     }
 
     private String outputWord(String prefix, String input) {
@@ -62,7 +61,7 @@ public class PigLatinTranslator {
     }
 
     private String getSuffix(String input, String prefix) {
-        return input.substring(prefix.length(), input.length());
+        return input.substring(prefix.length());
     }
 
     private boolean isConsonant(String letter) {

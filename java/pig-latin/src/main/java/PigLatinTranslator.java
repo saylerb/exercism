@@ -4,7 +4,7 @@ import java.util.stream.Collectors;
 
 public class PigLatinTranslator {
     public String translate(String input) {
-        List<String> words = Arrays.asList(input.split(" "));
+        List<String> words = Arrays.asList(input.split("\\s+"));
 
         List<String> translated = words.stream()
             .map(this::translateWord)
@@ -20,7 +20,7 @@ public class PigLatinTranslator {
             // short circuit if current consonant clusters is an edge case:
             // and treat as a vowel
             if (consonantPrefix.toString().equals("xr") ||
-                consonantPrefix.toString().equals("yt")) {
+                 consonantPrefix.toString().equals("yt")) {
                 consonantPrefix = new StringBuilder();
                 break;
             }

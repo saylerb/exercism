@@ -42,3 +42,8 @@ out
 .idea
 gradle
 gradlew*
+
+# Python
+__pycache__/
+*.py[cod]
+

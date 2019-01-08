@@ -57,5 +57,8 @@ describe("Space Age", () => {
     const age = new SpaceAge(1000000);
     age.seconds = 3210123456;
     expect(age.onEarth()).toEqual(101.72);
+
+    age.seconds = 1000000000;
+    expect(age.onEarth()).toEqual(31.69);
   });
 });

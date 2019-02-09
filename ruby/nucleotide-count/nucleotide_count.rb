@@ -7,13 +7,11 @@ class Nucleotide
   end
 
   def self.from_dna(sequence)
-    Nucleotide.new(sequence)
+    new(sequence)
   end
 
-  def count(to_find)
-    @sequence.reduce(0) do |acc, nucleotide|
-      to_find == nucleotide ? acc + 1 : acc
-    end
+  def count(nucleotide)
+    @sequence.count(nucleotide)
   end
 
   def build_histogram()
@@ -28,4 +26,3 @@ class Nucleotide
     end
   end
 end
-

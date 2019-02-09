@@ -1,9 +1,11 @@
+# frozen_string_literal: true
+
 class Nucleotide
   attr_accessor :histogram
 
   def initialize(sequence)
-    @sequence = sequence.split("")
-    @histogram = build_histogram()
+    @sequence = sequence.split('')
+    @histogram = build_histogram
   end
 
   def self.from_dna(sequence)
@@ -14,15 +16,13 @@ class Nucleotide
     @sequence.count(nucleotide)
   end
 
-  def build_histogram()
+  def build_histogram
     counts = { 'A' => 0, 'T' => 0, 'C' => 0, 'G' => 0 }
 
     @sequence.each_with_object(counts) do |nucleotide, obj|
-      if obj.key?(nucleotide)
-        obj[nucleotide] += 1
-      else
-        raise ArgumentError.new
-      end
+      raise ArgumentError, 'Not a valid nucleotide' unless obj.key?(nucleotide)
+
+      obj[nucleotide] += 1
     end
   end
 end

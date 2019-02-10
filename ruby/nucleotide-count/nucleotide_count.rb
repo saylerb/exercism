@@ -4,7 +4,7 @@ class Nucleotide
   attr_accessor :histogram
 
   def initialize(sequence)
-    @sequence = sequence.split('')
+    @sequence = sequence.each_char
     @histogram = build_histogram
   end
 

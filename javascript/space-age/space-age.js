@@ -1,3 +1,11 @@
+export function age(planet, seconds) {
+  const [first, ...rest] = planet;
+
+  const methodToCall = `on${first.toUpperCase()}${rest.join("")}`;
+
+  return new SpaceAge(seconds)[methodToCall]();
+}
+
 export class SpaceAge {
   constructor(seconds) {
     this.seconds = seconds;

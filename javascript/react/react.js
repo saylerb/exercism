@@ -104,7 +104,7 @@ export class CallbackCell {
   update() {
     // Only update if the output cell value changed
     if (this.previousComputeCellValue !== this.computeCell.value) {
-      const updatedValue = this.computeCell.value;
+      const updatedValue = this.callbackFn(this.computeCell);
       this.values.push(updatedValue);
 
       this.previousComputeCellValue = this.computeCell.value;

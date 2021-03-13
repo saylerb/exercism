@@ -1,18 +1,4 @@
-export function age(planet, seconds) {
-  return round(getEarthYears(seconds) / orbitalDurationInEarthYears(planet));
-}
-
-function orbitalDurationInEarthYears(planetName) {
-  return orbitalDurationMap.get(planetName);
-}
-
-function getEarthYears(seconds) {
-  return seconds / (60 * 60 * 24 * 365.25);
-}
-
-function round(num) {
-  return Math.round(num * 100) / 100;
-}
+const SECONDS_IN_AN_EARTH_YEAR = 60 * 60 * 24 * 365.25;
 
 const orbitalDurationMap = new Map([
   ["earth", 1],
@@ -24,3 +10,18 @@ const orbitalDurationMap = new Map([
   ["uranus", 84.016846],
   ["neptune", 164.79132],
 ]);
+
+const orbitalDurationMapInSeconds = new Map(orbitalDurationMap);
+
+orbitalDurationMapInSeconds.forEach((earthYearDuration, planetName, map) => {
+  const seconds = earthYearDuration * SECONDS_IN_AN_EARTH_YEAR;
+  map.set(planetName, seconds);
+});
+
+export function age(planet, seconds) {
+  return round(seconds / orbitalDurationMapInSeconds.get(planet), 2);
+}
+
+function round(num, decimalPlaces) {
+  return Math.round(num * 10 ** decimalPlaces) / 10 ** decimalPlaces;
+}

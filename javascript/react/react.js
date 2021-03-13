@@ -8,8 +8,40 @@ export class InputCell {
     this.value = value;
 
     if (this.computeCells.size !== 0) {
-      this.computeCells.forEach((computeCell) => computeCell.updateOutput());
+      const changedList = this.computeCells.map((computeCell) => {
+        const changed = computeCell.updateOutput();
+
+        return changed;
+      });
+
+      // Only find callbacks to call if a dependency changed
+      if (changedList.some((changed) => changed)) {
+        const callbacks = this.findCallbacks(this.computeCells);
+
+        callbacks.forEach((callback) => callback.update());
+      }
     }
+  }
+
+  findCallbacks(computeCells) {
+    const uniqueCallBacks = new Set();
+
+    computeCells.forEach((computeCell) => {
+      let current = computeCell;
+
+      // Add any callbacks on the immediately adjacent cells
+      current.callbacks.forEach((callback) => uniqueCallBacks.add(callback));
+
+      while (current.computeCell !== null) {
+        current.computeCell.callbacks.forEach((callback) => {
+          uniqueCallBacks.add(callback);
+        });
+
+        current = current.computeCell;
+      }
+    });
+
+    return uniqueCallBacks;
   }
 
   register(computeCell) {
@@ -22,7 +54,7 @@ export class ComputeCell {
     this.cells = cells;
     this.fn = fn;
     this.callbacks = new Set();
-    this.output = this.updateOutput();
+    this.value = this.computeValue();
     this.computeCell = null;
 
     this.cells.forEach((cell) => {
@@ -34,29 +66,26 @@ export class ComputeCell {
     this.computeCell = computeCell;
   }
 
+  computeValue() {
+    return this.fn(this.cells);
+  }
+
   updateOutput() {
-    const computed = this.fn(this.cells);
-    const changed = computed !== this.output && this.output !== undefined;
+    const computed = this.computeValue();
+    const changed = computed !== this.value && this.value !== undefined;
 
-    if (changed) {
-      this.callbacks.forEach((callback) => callback.update(computed));
-    }
-
-    this.output = computed;
+    this.value = computed;
 
     if (changed && this.computeCell !== null) {
       this.computeCell.updateOutput();
     }
 
-    return this.output;
-  }
-
-  get value() {
-    return this.output;
+    return changed;
   }
 
   addCallback(callback) {
     this.callbacks.add(callback);
+    callback.register(this);
   }
 
   removeCallback(callback) {
@@ -68,9 +97,22 @@ export class CallbackCell {
   constructor(callbackFn) {
     this.callbackFn = callbackFn;
     this.values = [];
+    this.computeCell = null;
+    this.previousComputeCellValue = null;
   }
 
-  update(computed) {
-    this.values.push(computed);
+  update() {
+    // Only update if the output cell value changed
+    if (this.previousComputeCellValue !== this.computeCell.value) {
+      const updatedValue = this.computeCell.value;
+      this.values.push(updatedValue);
+
+      this.previousComputeCellValue = this.computeCell.value;
+    }
+  }
+
+  register(computeCell) {
+    this.computeCell = computeCell;
+    this.previousComputeCellValue = computeCell.value;
   }
 }

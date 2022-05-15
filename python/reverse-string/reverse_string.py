@@ -1,2 +1,2 @@
 def reverse(text):
-    return text
+    pass

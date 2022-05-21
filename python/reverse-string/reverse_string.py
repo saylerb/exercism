@@ -1,8 +1,8 @@
 def reverse(text):
-    letters = list(text)
-    stack = []
+    stack = list(text)
+    result = ""
 
-    while len(letters) > 0:
-        stack += letters.pop()
+    while len(stack) > 0:
+        result += stack.pop()
 
-    return "".join(stack)
+    return result

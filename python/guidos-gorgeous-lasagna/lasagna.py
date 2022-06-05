@@ -22,16 +22,16 @@ def bake_time_remaining(elasped_bake_time) -> int:
 def preparation_time_in_minutes(number_of_layers) -> int:
     """Calculate the preparation time in minutes
 
-    :param number_of_layers: int - the number of lasagna layers 
+    :param number_of_layers: int - the number of lasagna layers
     :return: int - total preparation time
-    
+
     """
 
     return PREPARATION_TIME * number_of_layers
 
 def elapsed_time_in_minutes(number_of_layers, elasped_bake_time):
     """Calculate the total elapsed time
-    
+
     :param number_of_layers: int
     :param elasped_bake_time: int
 
